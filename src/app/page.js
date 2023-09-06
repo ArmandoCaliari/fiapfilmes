@@ -1,20 +1,23 @@
 import CardFilme from "@/components/CardFilme";
 import Title from "@/components/Title";
 
-export default function Home() {
+async function carregarFilmes(){
+  const url = "https://api.themoviedb.org/3/trending/movie/week?api_key=1e922667481ab207d642450b0efb461e&language=pt-br"
+  const resposta = await fetch(url)
+  const json = await resposta.json() // transformamos nossa resposta em json, porém vai voltar a ficar promise por isso vamos colocar o await
+  return json.results
+// fetch faz uma requisiçãode qualquer tipo por padrão é get]
 
-  const filmes = [
-    {
-      titulo: "Megatubarão 2",
-      nota: 7.3,
-      poster: "https://www.themoviedb.org/t/p/w220_and_h330_face/8tBhAn6qVRQzf5yvEcxjgPMgTkw.jpg"
-    },
-    {
-      titulo: "Barbbie",
-      nota: 2.1,
-      poster: "https://www.themoviedb.org/t/p/w220_and_h330_face/yRRuLt7sMBEQkHsd1S3KaaofZn7.jpg"
-    }
-  ]
+/*a função fetch retorna uma promessa de que uma hora os dados( da API) estarão ali. Assim o servidor não 
+tem que "parar" para carregar os dados */ 
+
+/* Por isso vamo colocar um await(espere), porém a função await só funciona com funções assincronas por 
+isso colocamos o async*/
+}
+
+
+export default async function Home() {
+  const filmes = await carregarFilmes()
 
   return (
     /*<> é a tag fragment só pra nao */
@@ -56,3 +59,7 @@ export default function Home() {
 }
 
 // Ele usou o heroicons
+// ele falou pra usar object fit para a imagem do cachorro
+// a API dele é themoviedb
+// A minha éa thedog api
+// 
